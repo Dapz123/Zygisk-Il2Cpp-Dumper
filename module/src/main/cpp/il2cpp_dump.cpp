@@ -94,22 +94,22 @@ bool _il2cpp_type_is_byref(const Il2CppType *type) {
 
 std::string dump_method(Il2CppClass *klass) {
     std::stringstream outPut;
-    outPut << "\n\t// Methods\n";
+    outPut << "\nMethods\n";
     void *iter = nullptr;
     while (auto method = il2cpp_class_get_methods(klass, &iter)) {
         //TODO attribute
         if (method->methodPointer) {
-            outPut << "\t// RVA: 0x";
+            outPut << "0x";
             outPut << std::hex << (uint64_t) method->methodPointer - il2cpp_base;
-            outPut << " VA: 0x";
-            outPut << std::hex << (uint64_t) method->methodPointer;
+            // outPut << " VA: 0x";
+            // outPut << std::hex << (uint64_t) method->methodPointer;
         } else {
-            outPut << "\t// RVA: 0x VA: 0x0";
+            outPut << " * ";
         }
         /*if (method->slot != 65535) {
             outPut << " Slot: " << std::dec << method->slot;
         }*/
-        outPut << "\n\t";
+        outPut << " ";
         uint32_t iflags = 0;
         auto flags = il2cpp_method_get_flags(method, &iflags);
         outPut << get_method_modifier(flags);
@@ -118,7 +118,7 @@ std::string dump_method(Il2CppClass *klass) {
         if (_il2cpp_type_is_byref(return_type)) {
             outPut << "ref ";
         }
-        auto return_class = il2cpp_class_from_type(return_type);
+,        auto return_class = il2cpp_class_from_type(return_type);
         outPut << il2cpp_class_get_name(return_class) << " " << il2cpp_method_get_name(method)
                << "(";
         auto param_count = il2cpp_method_get_param_count(method);
@@ -157,7 +157,7 @@ std::string dump_method(Il2CppClass *klass) {
 
 std::string dump_property(Il2CppClass *klass) {
     std::stringstream outPut;
-    outPut << "\n\t// Properties\n";
+    outPut << "\nProperties\n";
     void *iter = nullptr;
     while (auto prop_const = il2cpp_class_get_properties(klass, &iter)) {
         //TODO attribute
@@ -187,7 +187,7 @@ std::string dump_property(Il2CppClass *klass) {
             outPut << "}\n";
         } else {
             if (prop_name) {
-                outPut << " // unknown property " << prop_name;
+                outPut << " *  " << prop_name;
             }
         }
     }
@@ -196,7 +196,7 @@ std::string dump_property(Il2CppClass *klass) {
 
 std::string dump_field(Il2CppClass *klass) {
     std::stringstream outPut;
-    outPut << "\n\t// Fields\n";
+    outPut << "\nFields\n";
     auto is_enum = il2cpp_class_is_enum(klass);
     void *iter = nullptr;
     while (auto field = il2cpp_class_get_fields(klass, &iter)) {
@@ -249,7 +249,7 @@ std::string dump_field(Il2CppClass *klass) {
 std::string dump_type(const Il2CppType *type) {
     std::stringstream outPut;
     auto *klass = il2cpp_class_from_type(type);
-    outPut << "\n// Namespace: " << il2cpp_class_get_namespace(klass) << "\n";
+    outPut << "\nNamespace: " << il2cpp_class_get_namespace(klass) << "\n";
     auto flags = il2cpp_class_get_flags(klass);
     if (flags & TYPE_ATTRIBUTE_SERIALIZABLE) {
         outPut << "[Serializable]\n";
