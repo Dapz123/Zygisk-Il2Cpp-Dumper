@@ -118,7 +118,7 @@ std::string dump_method(Il2CppClass *klass) {
         if (_il2cpp_type_is_byref(return_type)) {
             outPut << "ref ";
         }
-,        auto return_class = il2cpp_class_from_type(return_type);
+        auto return_class = il2cpp_class_from_type(return_type);
         outPut << il2cpp_class_get_name(return_class) << " " << il2cpp_method_get_name(method)
                << "(";
         auto param_count = il2cpp_method_get_param_count(method);
