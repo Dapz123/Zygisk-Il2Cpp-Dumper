@@ -314,8 +314,8 @@ std::string dump_type(const Il2CppType *type) {
         }
     }
     outPut << "\n{";
-    outPut << dump_field(klass);
-    outPut << dump_property(klass);
+    // outPut << dump_field(klass);
+    // outPut << dump_property(klass);
     outPut << dump_method(klass);
     //TODO EventInfo
     outPut << "}\n";
