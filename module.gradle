@@ -1,7 +1,7 @@
 ext {
-    moduleLibraryName = "gt.il2cppdumper"
-    magiskModuleId = "gt_il2cppdumper"
-    moduleName = "GT-Il2CppDumper"
+    moduleLibraryName = "package.dumper"
+    magiskModuleId = "zygisk.package"
+    moduleName = "<package>"
     moduleAuthor = "Perfare"
     moduleDescription = "Il2CppDumper Zygisk version."
     moduleVersion = "v1.2.0"
