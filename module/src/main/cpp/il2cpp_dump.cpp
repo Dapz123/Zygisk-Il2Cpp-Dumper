@@ -307,7 +307,7 @@ std::string dump_type(const Il2CppType *type) {
             outPut << ", " << extends[i];
         }
     }
-    outPut << "\n{";
+    outPut << "\n{\n";
     // outPut << dump_field(klass);
     // outPut << dump_property(klass);
     outPut << dump_method(klass);
