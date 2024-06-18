@@ -134,7 +134,7 @@ void il2cpp_api_init(void *handle) {
     il2cpp_thread_attach(domain);
 }
 
-void il2cpp_dump(const char *outDir) {
+void il2cpp_dump_all(const char *outDir) {
     LOGI("dumping...");
     size_t size;
     auto domain = il2cpp_domain_get();
