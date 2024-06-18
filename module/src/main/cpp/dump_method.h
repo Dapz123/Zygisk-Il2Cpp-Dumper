@@ -1,6 +1,60 @@
 #ifndef DUMP_METHOD_H
 #define DUMP_METHOD_H
 
+std::string get_method_modifier(uint32_t flags) {
+    std::stringstream outPut;
+    auto access = flags & METHOD_ATTRIBUTE_MEMBER_ACCESS_MASK;
+    switch (access) {
+        case METHOD_ATTRIBUTE_PRIVATE:
+            outPut << "private ";
+            break;
+        case METHOD_ATTRIBUTE_PUBLIC:
+            outPut << "public ";
+            break;
+        case METHOD_ATTRIBUTE_FAMILY:
+            outPut << "protected ";
+            break;
+        case METHOD_ATTRIBUTE_ASSEM:
+        case METHOD_ATTRIBUTE_FAM_AND_ASSEM:
+            outPut << "internal ";
+            break;
+        case METHOD_ATTRIBUTE_FAM_OR_ASSEM:
+            outPut << "protected internal ";
+            break;
+    }
+    if (flags & METHOD_ATTRIBUTE_STATIC) {
+        outPut << "static ";
+    }
+    if (flags & METHOD_ATTRIBUTE_ABSTRACT) {
+        outPut << "abstract ";
+        if ((flags & METHOD_ATTRIBUTE_VTABLE_LAYOUT_MASK) == METHOD_ATTRIBUTE_REUSE_SLOT) {
+            outPut << "override ";
+        }
+    } else if (flags & METHOD_ATTRIBUTE_FINAL) {
+        if ((flags & METHOD_ATTRIBUTE_VTABLE_LAYOUT_MASK) == METHOD_ATTRIBUTE_REUSE_SLOT) {
+            outPut << "sealed override ";
+        }
+    } else if (flags & METHOD_ATTRIBUTE_VIRTUAL) {
+        if ((flags & METHOD_ATTRIBUTE_VTABLE_LAYOUT_MASK) == METHOD_ATTRIBUTE_NEW_SLOT) {
+            outPut << "virtual ";
+        } else {
+            outPut << "override ";
+        }
+    }
+    if (flags & METHOD_ATTRIBUTE_PINVOKE_IMPL) {
+        outPut << "extern ";
+    }
+    return outPut.str();
+}
+
+bool _il2cpp_type_is_byref(const Il2CppType *type) {
+    auto byref = type->byref;
+    if (il2cpp_type_is_byref) {
+        byref = il2cpp_type_is_byref(type);
+    }
+    return byref;
+}
+
 std::string dump_method(Il2CppClass *klass) {
     std::stringstream outPut;
     outPut << "\nMethods\n";
