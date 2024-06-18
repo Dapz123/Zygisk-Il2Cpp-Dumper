@@ -208,8 +208,8 @@ void il2cpp_dump_all(const char *outDir) {
         }
     }
     LOGI("write dump file");
-    auto outPath = std::string(outDir).append("/files/dump.cs");
-    std::ofstream outStream(outPath);
+    auto outPath_all= std::string(outDir).append("/files/dump.cs");
+    std::ofstream outStream(outPath_all);
     outStream << imageOutput.str();
     auto count = outPuts.size();
     for (int i = 0; i < count; ++i) {
